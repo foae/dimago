@@ -32,7 +32,7 @@ func main() {
 	/*
 		Build up the config
 	*/
-	githubChan := make(chan bool)
+	githubChan := make(chan string)
 	githubClient := github.NewClient(githubChan)
 	hdlr := handler.NewHandler(handler.Config{
 		GithubClient: githubClient,
