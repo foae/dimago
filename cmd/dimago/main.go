@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/foae/dimago/clients/cacoo"
 	"github.com/foae/dimago/clients/github"
 	"github.com/foae/dimago/handler"
 	"log"
@@ -32,10 +33,15 @@ func main() {
 	/*
 		Build up the config
 	*/
-	githubChan := make(chan string)
-	githubClient := github.NewClient(githubChan)
+	githubClient := github.NewClient(nil)
+	cacooClient := cacoo.NewClient(
+		mustGetEnv("CACOO_API_KEY"),
+		mustGetEnv("CACOO_BASE_URL"),
+		mustGetEnv("CACOO_FOLDER_ID"),
+	)
 	hdlr := handler.NewHandler(handler.Config{
 		GithubClient: githubClient,
+		CacooClient:  cacooClient,
 	})
 
 	/*

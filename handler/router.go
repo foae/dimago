@@ -3,27 +3,21 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/foae/dimago/clients/cacoo"
+	"github.com/foae/dimago/clients/github"
 	"github.com/go-chi/chi"
 	"log"
 	"net/http"
 )
 
-type GithubCommunicator interface {
-	RetrieveProject(projectURL string) error
-}
-
-type CacooCommunicator interface {
-	RetrieveDiagram(diagramID string) error
-}
-
 type Config struct {
-	GithubClient GithubCommunicator
-	CacooClient  CacooCommunicator
+	GithubClient github.Communicator
+	CacooClient  cacoo.Communicator
 }
 
 type Handler struct {
-	githubClient GithubCommunicator
-	cacooClient  CacooCommunicator
+	githubClient github.Communicator
+	cacooClient  cacoo.Communicator
 }
 
 func NewHandler(cfg Config) http.Handler {
